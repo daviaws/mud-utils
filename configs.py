@@ -78,6 +78,9 @@ def copy_file(src_path, dst_path):
     shutil.copyfile(src_path, dst_path)
 
 
+def get_file_from_path(path):
+    return path.split("/")[-1]
+
 # -----------------------------------
 # Configs validation
 try:

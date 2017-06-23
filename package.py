@@ -17,7 +17,7 @@ def exctract_package(src_dir):
 def move_pngs_to_proj():
     png_files = images.find_png_files(configs.tmp_path())
     for png_file in png_files:
-        dst_file = configs.images_path() + "/" + png_file.split("/")[-1]
+        dst_file = configs.images_path() + "/" + configs.get_file_from_path(png_file)
         configs.copy_file(png_file, dst_file)
 
 
@@ -31,7 +31,6 @@ def convert_xml_to_proj():
     xml_files = xml.find_files(configs.tmp_path())
     for xml_file in xml_files:
         if configs.triggers() in xml_file:
-            xml_file = configs.TMP_DIR + "/" + xml_file
             xml.to_triggers_proj(xml_file, configs.triggers_path())
 
 
@@ -39,8 +38,8 @@ def convert_package_to_proj(package_path):
     create_proj_tree()
     configs.create_dir(configs.TMP_DIR)
     exctract_package(package_path)
-    # move_pngs_to_proj()
-    convert_xml_to_proj()
+    move_pngs_to_proj()
+    # convert_xml_to_proj()
     # configs.delete_dir(configs.TMP_DIR)
 
 
