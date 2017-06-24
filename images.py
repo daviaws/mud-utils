@@ -23,6 +23,3 @@ def correct_pngs():
     for file_path in find_png_files(configs.proj_path()):
         if file_path is not None:
             call_corretion_script(file_path)
-
-
-correct_pngs()

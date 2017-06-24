@@ -8,15 +8,15 @@ import shutil
 
 CFG_PATH = "mud-utils.cfg"
 IMAGES_DIR = "/images"
-TRIGGERS_DIR = "/triggers"
 TMP_DIR = "/tmp/mud-utils"
+TMP_PACKAGE_CONFIGS = "/tmp/mud-utils/config.lua"
+PROJ_CONFIGS = "config.lua"
 
 # -----------------------------------
 # Config Vars
 
 VAR_PROJ_PATH = "proj_path"
-
-TRIGGERS = "Triggers"
+VAR_PACKAGE_PATH = "package_path"
 
 # -----------------------------------
 # Core methods
@@ -38,20 +38,24 @@ def proj_path():
     return configs[VAR_PROJ_PATH]
 
 
+def package_path():
+    return configs[VAR_PACKAGE_PATH]
+
+def tmp_package_configs():
+    return TMP_PACKAGE_CONFIGS
+
+
+def proj_configs():
+    return configs[VAR_PROJ_PATH] + '/' + PROJ_CONFIGS
+
+
 def images_path():
     return configs[VAR_PROJ_PATH] + IMAGES_DIR
-
-
-def triggers_path():
-    return configs[VAR_PROJ_PATH] + TRIGGERS_DIR
 
 
 def tmp_path():
     return TMP_DIR
 
-
-def triggers():
-    return TRIGGERS
 
 # -----------------------------------
 # Dir functions
@@ -70,6 +74,20 @@ def delete_dir(path):
 # Files functions
 
 
+def read_file(path):
+    with open(path, 'r') as file:
+        return file.read()
+
+
+def write_file(path, content=""):
+    with open(path, 'w') as file:
+        file.write(content)
+
+
+def write_json(path, dict_data):
+    write_file(path, json.dumps(dict_data, indent=4))
+
+
 def find_files(pattern_file):
     return glob.glob(pattern_file)
 
@@ -80,6 +98,7 @@ def copy_file(src_path, dst_path):
 
 def get_file_from_path(path):
     return path.split("/")[-1]
+
 
 # -----------------------------------
 # Configs validation
